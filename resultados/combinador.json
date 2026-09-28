@@ -1,0 +1,41 @@
+{
+  "pesos": {
+    "perplejidad": 0.1199113101876294,
+    "binoculars": -1.6370686035432545,
+    "log_rank_medio": -1.507422868943303,
+    "fraccion_top10": 0.8243997851661485,
+    "entropia_media": 0.04482306358128969,
+    "burstiness": 0.21283128534765006,
+    "variacion_largo_oracion": -0.7333796757683109,
+    "marcadores_por_100_palabras": 0.06257396007873407,
+    "largo_medio_oracion": -0.4450425929462392,
+    "type_token_ratio": 1.6374356134087127
+  },
+  "sesgo": -0.2697136376085811,
+  "medias": {
+    "perplejidad": 2.323464266585906,
+    "binoculars": 0.9116118881118881,
+    "log_rank_medio": 1.1707307692307691,
+    "fraccion_top10": 0.8066111888111888,
+    "entropia_media": 2.4805244755244757,
+    "burstiness": 0.6912626760563381,
+    "variacion_largo_oracion": 0.40825874125874123,
+    "marcadores_por_100_palabras": 0.06258041958041959,
+    "largo_medio_oracion": 28.444755244755246,
+    "type_token_ratio": 0.5478251748251748
+  },
+  "desvs": {
+    "perplejidad": 0.5457187540984197,
+    "binoculars": 0.09045639871486708,
+    "log_rank_medio": 0.3284404990723233,
+    "fraccion_top10": 0.0637769464288588,
+    "entropia_media": 0.4798205893169,
+    "burstiness": 0.5097837339871772,
+    "variacion_largo_oracion": 0.19608691926313665,
+    "marcadores_por_100_palabras": 0.207625584629715,
+    "largo_medio_oracion": 14.655392326403076,
+    "type_token_ratio": 0.08926164218089187
+  },
+  "umbral": 0.743482890081606,
+  "fpr_objetivo": 0.05
+}

@@ -15,3 +15,10 @@ python3 -m detector.perplejidad ejemplos/humano.txt ejemplos/ia.txt   # fase 2
 
 La fase 2 descarga Qwen2.5-0.5B y Qwen2.5-0.5B-Instruct (~2 GB) desde
 huggingface.co, así que ese dominio tiene que estar permitido en la red.
+
+Fase 3 (prueba con 288 textos reales): ver `docs/resultados_fase3.md`.
+
+```
+python3 -m corpus.construir todo
+python3 -m corpus.evaluar --recalcular
+```

@@ -134,6 +134,7 @@ legibles; el combinador aprende los pesos con el corpus etiquetado.
 2. **Fase 2 – Señales con LLM**: perplejidad, burstiness y log-rank con un
    modelo pequeño multilingüe; luego Binoculars.
 3. **Fase 3 – Datos y combinador**: construir el corpus pareado, entrenar el
-   combinador y calibrarlo.
+   combinador y calibrarlo. Primera versión con 288 textos: ver
+   `docs/resultados_fase3.md`.
 4. **Fase 4 – Clasificador supervisado** (XLM-R) y evaluación de robustez.
 5. **Fase 5 – Interfaz**: reporte con resaltado por oración.
