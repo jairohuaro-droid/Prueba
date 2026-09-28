@@ -7,7 +7,7 @@ puntuación Binoculars (dos modelos que comparten tokenizador).
 Requiere: pip install -r requirements.txt
 
 Uso:
-    python -m detector.perplejidad archivo.txt
+    python -m detector.perplejidad archivo.txt [otro.txt ...]
     echo "texto" | python -m detector.perplejidad
 
 Los umbrales todavía no están calibrados; eso se hace en la fase 3.
@@ -48,7 +48,7 @@ class Evaluador:
         self.ejecutor = self._cargar(AutoModelForCausalLM, ejecutor) if ejecutor else None
 
     def _cargar(self, clase, nombre):
-        modelo = clase.from_pretrained(nombre, torch_dtype="auto").to(self.dispositivo)
+        modelo = clase.from_pretrained(nombre, dtype="auto").to(self.dispositivo)
         modelo.eval()
         return modelo
 
@@ -108,8 +108,17 @@ class Evaluador:
 
 
 def main(argv):
-    texto = open(argv[1], encoding="utf-8").read() if len(argv) > 1 else sys.stdin.read()
-    print(json.dumps(Evaluador().analizar(texto), ensure_ascii=False, indent=2))
+    evaluador = Evaluador()
+    if len(argv) < 2:
+        print(json.dumps(evaluador.analizar(sys.stdin.read()), ensure_ascii=False, indent=2))
+        return
+    # Con varios archivos el modelo se carga una sola vez.
+    resultados = {}
+    for ruta in argv[1:]:
+        with open(ruta, encoding="utf-8") as f:
+            resultados[ruta] = evaluador.analizar(f.read())
+    print(json.dumps(resultados if len(resultados) > 1 else resultados[argv[1]],
+                     ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
