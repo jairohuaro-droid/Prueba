@@ -22,3 +22,14 @@ Fase 3 (prueba con 288 textos reales): ver `docs/resultados_fase3.md`.
 python3 -m corpus.construir todo
 python3 -m corpus.evaluar --recalcular
 ```
+
+## Revisar un PDF
+
+```
+python3 -m detector.revisar tesis.pdf            # crea tesis_revisado.pdf
+```
+
+Resalta en rojo/amarillo los tramos de ~200 palabras que son más predecibles
+que el 99 %/95 % de las tesis humanas de calibración, y añade una portada con
+el resumen. Usa Qwen2.5-1.5B y los umbrales de `resultados/umbrales.json`
+(`python3 -m corpus.calibrar 1.5B --guardar`). Es un indicio, no una prueba.

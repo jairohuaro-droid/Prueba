@@ -6,6 +6,11 @@ Grupos:
              es decir, antes de ChatGPT. Humanos.
   gemelos    Un resumen escrito por IA (Claude) para cada tesis, con el mismo
              título y área. Están en corpus/gemelos_ia.jsonl.
+  tesis_extra  El resto de tesis candidatas, para calibrar con más texto
+             académico humano.
+  salamandra Resúmenes generados con BSC-LT/salamandra-2b-instruct para
+             títulos de tesis_extra (corpus/salamandra_ia.jsonl, ver
+             corpus/generar_ia.py).
   iberautex  Muestra en español de IberAuTexTification (IberLEF 2024), textos
              humanos y generados por seis modelos, ya etiquetados.
   clasicos   Fragmentos de obras de dominio público en es.wikisource.org.
@@ -179,6 +184,11 @@ def tesis():
     for area in sorted(por_area):
         elegidas += rnd.sample(por_area[area], min(TESIS_POR_AREA, len(por_area[area])))
     escribir_jsonl(DATOS / "tesis.jsonl", elegidas)
+    # El resto sirve para calibrar con más texto académico humano.
+    usadas = {t["id"] for t in elegidas}
+    extra = [dict(t, grupo="tesis_extra") for area in sorted(por_area)
+             for t in por_area[area] if t["id"] not in usadas]
+    escribir_jsonl(DATOS / "tesis_extra.jsonl", extra)
 
 
 # ----------------------------------------------------------------- iberautex
@@ -272,16 +282,15 @@ def clasicos():
 
 def unir():
     filas = []
-    for nombre in ("tesis", "iberautex", "clasicos"):
+    for nombre in ("tesis", "tesis_extra", "iberautex", "clasicos"):
         ruta = DATOS / f"{nombre}.jsonl"
         if ruta.exists():
             filas += leer_jsonl(ruta)
-    gemelos = CORPUS / "gemelos_ia.jsonl"
-    if gemelos.exists():
-        ids = {f["id"] for f in filas}
-        for g in leer_jsonl(gemelos):
-            if g["gemelo_de"] in ids:
-                filas.append(g)
+    ids = {f["id"] for f in filas}
+    for nombre in ("gemelos_ia", "salamandra_ia"):
+        ruta = CORPUS / f"{nombre}.jsonl"
+        if ruta.exists():
+            filas += [g for g in leer_jsonl(ruta) if g["gemelo_de"] in ids]
     escribir_jsonl(DATOS / "corpus.jsonl", filas)
     campos = ["id", "grupo", "etiqueta", "area", "modelo", "titulo", "autor", "anio",
               "gemelo_de", "palabras", "fuente", "url", "licencia"]

@@ -109,3 +109,32 @@ python -m corpus.evaluar --recalcular   # ~6 min en CPU
 
 Archivos: `resultados/senales.csv` (señales por texto, sin el texto),
 `resultados/metricas.json` y `resultados/combinador.json` (pesos y umbral).
+
+## Calibración académica y modelo más grande (revisión de PDF)
+
+Para revisar tesis se calibró solo con texto académico, recortado a ~200
+palabras (el tamaño de los tramos que se resaltan):
+
+- Humanos: 345 resúmenes de tesis de magíster (U. de Chile, 2021 o antes).
+  Con la mitad se fijan los umbrales y con la otra mitad se mide cuántos
+  humanos quedarían marcados.
+- IA: los 40 gemelos (Claude) y 40 resúmenes generados con
+  BSC-LT/salamandra-2b-instruct (`corpus/generar_ia.py`; de 60 generados,
+  20 salieron con menos de 100 palabras y se descartaron).
+
+| | Qwen2.5-0.5B | Qwen2.5-1.5B |
+|---|---|---|
+| Acierto general (AUROC) | 92,0 % | **93,9 %** |
+| Humanos marcados en amarillo o rojo | 3,5 % | **2,9 %** |
+| Humanos marcados en rojo | **0,6 %** | 1,2 % |
+| IA detectada (amarillo o rojo) | 67,5 % | 67,5 % |
+| — textos de Claude | 40 % | **47,5 %** |
+| — textos de Salamandra | **95 %** | 87,5 % |
+
+Se eligió 1.5B: acusa a menos humanos en total y detecta mejor los textos del
+modelo más reciente, que son los más difíciles. Umbrales en
+`resultados/umbrales.json`.
+
+En un PDF de prueba con 3 capítulos humanos y 3 de IA (Claude), la
+herramienta marcó 1 capítulo de IA en rojo y ninguno humano, en línea con
+lo esperado.
