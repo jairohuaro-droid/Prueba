@@ -1,0 +1,154 @@
+{
+  "n": {
+    "tesis_vs_gemelos": 80,
+    "iberautex": 200,
+    "todo": 280,
+    "clasicos": 8
+  },
+  "auroc": {
+    "perplejidad": {
+      "tesis_vs_gemelos": 0.903,
+      "iberautex": 0.811,
+      "todo": 0.824
+    },
+    "binoculars": {
+      "tesis_vs_gemelos": 0.882,
+      "iberautex": 0.838,
+      "todo": 0.836
+    },
+    "log_rank_medio": {
+      "tesis_vs_gemelos": 0.89,
+      "iberautex": 0.818,
+      "todo": 0.828
+    },
+    "fraccion_top10": {
+      "tesis_vs_gemelos": 0.838,
+      "iberautex": 0.812,
+      "todo": 0.815
+    },
+    "entropia_media": {
+      "tesis_vs_gemelos": 0.791,
+      "iberautex": 0.767,
+      "todo": 0.769
+    },
+    "burstiness": {
+      "tesis_vs_gemelos": 0.594,
+      "iberautex": 0.421,
+      "todo": 0.474
+    },
+    "variacion_largo_oracion": {
+      "tesis_vs_gemelos": 0.674,
+      "iberautex": 0.683,
+      "todo": 0.678
+    },
+    "marcadores_por_100_palabras": {
+      "tesis_vs_gemelos": 0.488,
+      "iberautex": 0.535,
+      "todo": 0.522
+    },
+    "largo_medio_oracion": {
+      "tesis_vs_gemelos": 0.467,
+      "iberautex": 0.415,
+      "todo": 0.445
+    },
+    "type_token_ratio": {
+      "tesis_vs_gemelos": 0.436,
+      "iberautex": 0.641,
+      "todo": 0.593
+    },
+    "puntuacion_heuristica": {
+      "tesis_vs_gemelos": 0.666,
+      "iberautex": 0.637,
+      "todo": 0.646
+    },
+    "binoculars_por_dominio": {
+      "chat": 0.476,
+      "literary": 0.947,
+      "news": 0.956,
+      "wikipedia": 0.978
+    }
+  },
+  "medianas": {
+    "tesis/humano": {
+      "perplejidad": 13.992,
+      "binoculars": 0.992,
+      "fraccion_top10": 0.777,
+      "palabras": 270.0
+    },
+    "gemelos/ia": {
+      "perplejidad": 9.454,
+      "binoculars": 0.908,
+      "fraccion_top10": 0.815,
+      "palabras": 247.5
+    },
+    "iberautex/humano": {
+      "perplejidad": 14.962,
+      "binoculars": 0.959,
+      "fraccion_top10": 0.764,
+      "palabras": 268.5
+    },
+    "iberautex/ia": {
+      "perplejidad": 6.89,
+      "binoculars": 0.837,
+      "fraccion_top10": 0.853,
+      "palabras": 265.0
+    },
+    "clasicos/humano": {
+      "perplejidad": 29.656,
+      "binoculars": 1.003,
+      "fraccion_top10": 0.67,
+      "palabras": 282.0
+    }
+  },
+  "combinador": {
+    "umbral": 0.7435,
+    "n_calibracion": 143,
+    "n_prueba": 137,
+    "prueba_todo": {
+      "auroc": 0.832,
+      "ia_detectada": 0.343,
+      "humanos_acusados": 0.086,
+      "n_ia": 67,
+      "n_humanos": 70
+    },
+    "prueba_tesis": {
+      "auroc": 0.879,
+      "ia_detectada": 0.059,
+      "humanos_acusados": 0.0,
+      "n_ia": 17,
+      "n_humanos": 17
+    },
+    "prueba_iberautex": {
+      "auroc": 0.828,
+      "ia_detectada": 0.44,
+      "humanos_acusados": 0.113,
+      "n_ia": 50,
+      "n_humanos": 53
+    },
+    "clasicos": {
+      "auroc": null,
+      "ia_detectada": null,
+      "humanos_acusados": 0.0,
+      "n_ia": 0,
+      "n_humanos": 8
+    },
+    "binoculars_sola": {
+      "umbral": 0.8333,
+      "ia_detectada": 0.358,
+      "humanos_acusados": 0.1,
+      "clasicos_acusados": 0.0
+    }
+  },
+  "combinador_pesos": {
+    "perplejidad": 0.12,
+    "binoculars": -1.637,
+    "log_rank_medio": -1.507,
+    "fraccion_top10": 0.824,
+    "entropia_media": 0.045,
+    "burstiness": 0.213,
+    "variacion_largo_oracion": -0.733,
+    "marcadores_por_100_palabras": 0.063,
+    "largo_medio_oracion": -0.445,
+    "type_token_ratio": 1.637
+  }
+}

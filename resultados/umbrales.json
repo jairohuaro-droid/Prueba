@@ -1,0 +1,27 @@
+{
+  "alto": 0.8757,
+  "medio": 0.9097,
+  "n_humanos_calibracion": 172,
+  "n_humanos_prueba": 173,
+  "n_ia": 80,
+  "fpr_alto_prueba": 0.012,
+  "fpr_medio_prueba": 0.029,
+  "sensibilidad_alto": 0.537,
+  "sensibilidad_medio": 0.675,
+  "sensibilidad_por_grupo": {
+    "gemelos": {
+      "n": 40,
+      "alto": 0.3,
+      "medio": 0.475
+    },
+    "salamandra": {
+      "n": 40,
+      "alto": 0.775,
+      "medio": 0.875
+    }
+  },
+  "auroc": 0.939,
+  "observador": "Qwen/Qwen2.5-1.5B",
+  "ejecutor": "Qwen/Qwen2.5-1.5B-Instruct",
+  "palabras_tramo": 200
+}
