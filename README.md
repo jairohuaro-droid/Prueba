@@ -27,6 +27,7 @@ python3 -m corpus.evaluar --recalcular
 
 ```
 python3 -m detector.revisar tesis.pdf            # crea tesis_revisado.pdf
+python3 -m detector.revisar tesis.docx           # crea tesis_revisado.docx y tesis_revisado.pdf
 ```
 
 Resalta en rojo/amarillo los tramos de ~200 palabras que son más predecibles

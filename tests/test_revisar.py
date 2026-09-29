@@ -55,12 +55,39 @@ class TestRevisar(unittest.TestCase):
                 p.insert_textbox(pymupdf.Rect(72, 120, 523, 780), PARRAFO * 8 + extra, fontsize=11)
             doc.save(entrada)
             umbrales = {"alto": 0.8, "medio": 0.9, "sensibilidad_medio": 0.5, "fpr_medio_prueba": 0.05}
-            salida, tramos = revisar(entrada, evaluador=FakeEvaluador(), umbrales=umbrales)
+            (salida,), tramos = revisar(entrada, evaluador=FakeEvaluador(), umbrales=umbrales)
             self.assertEqual([t.nivel for t in tramos], ["bajo", "alto"])
             out = pymupdf.open(salida)
             self.assertEqual(len(out), 3)  # portada + 2 páginas
             self.assertEqual(len(list(out[2].annots())), 1)
             self.assertEqual(len(list(out[1].annots())), 0)
+
+    def test_docx_completo(self):
+        import docx
+        from detector.revisar import revisar
+        with tempfile.TemporaryDirectory() as d:
+            entrada = Path(d) / "t.docx"
+            doc = docx.Document()
+            doc.add_paragraph("Portada de la tesis", style="Title")
+            doc.add_heading("CAPÍTULO I", level=1)
+            doc.add_paragraph(PARRAFO * 8)
+            doc.add_heading("1.1. Sección", level=2)
+            doc.add_paragraph(PARRAFO * 8 + " Texto muy predecible.")
+            doc.add_heading("REFERENCIAS", level=1)
+            doc.add_paragraph("Pérez, J. (2010). " + PARRAFO * 3)
+            doc.save(entrada)
+            umbrales = {"alto": 0.8, "medio": 0.9, "sensibilidad_medio": 0.5, "fpr_medio_prueba": 0.05}
+            (word, pdf), tramos = revisar(entrada, evaluador=FakeEvaluador(), umbrales=umbrales)
+            self.assertEqual([t.nivel for t in tramos], ["bajo", "alto"])
+            self.assertEqual(tramos[1].ubicacion, "1.1. Sección")
+            out = docx.Document(word)
+            marcados = [p for p in out.paragraphs if any(r.font.highlight_color for r in p.runs)]
+            self.assertTrue(out.paragraphs[0].text.startswith("Revisión de posibles tramos"))
+            self.assertTrue(any("predecible" in p.text for p in marcados))
+            import pymupdf
+            texto_pdf = " ".join("".join(pg.get_text() for pg in pymupdf.open(pdf)).split())
+            self.assertIn("Texto muy predecible", texto_pdf)
+            self.assertNotIn("Pérez, J.", texto_pdf)
 
 
 if __name__ == "__main__":
